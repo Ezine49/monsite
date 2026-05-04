@@ -6,14 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CruzInformatics — Assistance Informatique · Genève</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function(){
-      // Remplacez 'YOUR_PUBLIC_KEY' par votre clé publique EmailJS (onglet Account > API Keys)
-      emailjs.init({ publicKey: 'YOUR_PUBLIC_KEY' });
-    })();
-  </script>
+
 <style>
   :root {
     --noir:   #08080f;
@@ -1008,25 +1001,38 @@ function handleSubmit(e) {
   btn.style.opacity = '.7';
   btn.style.pointerEvents = 'none';
 
-  emailjs.send('service_cruzinformatics', 'template_contact', {
-    from_name:    name,
-    from_email:   email,
-    service_type: service,
-    message:      message,
-    reply_to:     email
+  const body = [
+    'Nom : '           + name,
+    'Email : '         + email,
+    'Service souhaité : ' + service,
+    '',
+    'Message :',
+    message || '(aucun message)'
+  ].join('\n');
+
+  fetch('https://formspree.io/f/contact@cruzinformatics.ch', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body:    JSON.stringify({ name, email, _replyto: email, subject: 'Demande CruzInformatics — ' + service, message: body })
   })
-  .then(() => {
+  .then(res => {
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     btn.textContent = '✓ MESSAGE ENVOYÉ !';
     btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
     btn.style.opacity = '1';
+    btn.style.pointerEvents = 'none';
     form.reset();
     const badge = document.getElementById('service-badge');
     if (badge) badge.style.display = 'none';
   })
-  .catch((err) => {
-    console.error('EmailJS error:', err);
-    btn.textContent = '✗ ERREUR — RÉESSAYEZ';
-    btn.style.background = 'linear-gradient(135deg,#dc2626,#ef4444)';
+  .catch(() => {
+    /* Formspree fallback : ouverture du client mail natif */
+    const mailto = 'mailto:contact@cruzinformatics.ch'
+      + '?subject=' + encodeURIComponent('Demande CruzInformatics — ' + service)
+      + '&body='    + encodeURIComponent(body);
+    window.location.href = mailto;
+    btn.textContent = 'ENVOYER MA DEMANDE →';
+    btn.style.background = '';
     btn.style.opacity = '1';
     btn.style.pointerEvents = 'auto';
   });
