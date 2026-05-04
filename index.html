@@ -997,45 +997,36 @@ function handleSubmit(e) {
 
   if (!name || !email || !service) return;
 
-  btn.textContent = 'ENVOI EN COURS…';
-  btn.style.opacity = '.7';
-  btn.style.pointerEvents = 'none';
-
+  const subject = 'Demande CruzInformatics - ' + service;
   const body = [
-    'Nom : '           + name,
-    'Email : '         + email,
-    'Service souhaité : ' + service,
+    'Nom : '              + name,
+    'Email : '            + email,
+    'Service souhaite : ' + service,
     '',
     'Message :',
-    message || '(aucun message)'
+    message || '(aucun message)',
+    '',
+    '-------------------------',
+    'Envoye depuis cruzinformatics.ch'
   ].join('\n');
 
-  fetch('https://formspree.io/f/contact@cruzinformatics.ch', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body:    JSON.stringify({ name, email, _replyto: email, subject: 'Demande CruzInformatics — ' + service, message: body })
-  })
-  .then(res => {
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    btn.textContent = '✓ MESSAGE ENVOYÉ !';
-    btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'none';
-    form.reset();
-    const badge = document.getElementById('service-badge');
-    if (badge) badge.style.display = 'none';
-  })
-  .catch(() => {
-    /* Formspree fallback : ouverture du client mail natif */
-    const mailto = 'mailto:contact@cruzinformatics.ch'
-      + '?subject=' + encodeURIComponent('Demande CruzInformatics — ' + service)
-      + '&body='    + encodeURIComponent(body);
-    window.location.href = mailto;
-    btn.textContent = 'ENVOYER MA DEMANDE →';
+  const mailto = 'mailto:contact@cruzinformatics.ch'
+    + '?subject=' + encodeURIComponent(subject)
+    + '&body='    + encodeURIComponent(body);
+
+  window.location.href = mailto;
+
+  btn.textContent = '\u2713 CLIENT MAIL OUVERT !';
+  btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
+  btn.style.opacity = '1';
+
+  setTimeout(function() {
+    btn.textContent = 'ENVOYER MA DEMANDE \u2192';
     btn.style.background = '';
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
-  });
+    form.reset();
+    var badge = document.getElementById('service-badge');
+    if (badge) badge.style.display = 'none';
+  }, 4000);
 }
 
 /* ── HERO CIRCUIT BOARD ── */
