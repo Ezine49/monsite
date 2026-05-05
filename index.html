@@ -997,36 +997,44 @@ function handleSubmit(e) {
 
   if (!name || !email || !service) return;
 
-  const subject = 'Demande CruzInformatics - ' + service;
-  const body = [
-    'Nom : '              + name,
-    'Email : '            + email,
-    'Service souhaite : ' + service,
-    '',
-    'Message :',
-    message || '(aucun message)',
-    '',
-    '-------------------------',
-    'Envoye depuis cruzinformatics.ch'
-  ].join('\n');
+  // Feedback visuel immédiat
+  btn.textContent    = 'ENVOI EN COURS\u2026';
+  btn.style.opacity  = '.6';
+  btn.style.pointerEvents = 'none';
 
-  const mailto = 'mailto:contact@cruzinformatics.ch'
-    + '?subject=' + encodeURIComponent(subject)
-    + '&body='    + encodeURIComponent(body);
-
-  window.location.href = mailto;
-
-  btn.textContent = '\u2713 CLIENT MAIL OUVERT !';
-  btn.style.background = 'linear-gradient(135deg,#059669,#10b981)';
-  btn.style.opacity = '1';
-
-  setTimeout(function() {
-    btn.textContent = 'ENVOYER MA DEMANDE \u2192';
-    btn.style.background = '';
-    form.reset();
-    var badge = document.getElementById('service-badge');
-    if (badge) badge.style.display = 'none';
-  }, 4000);
+  // Envoi vers le serveur Render
+  fetch('https://serveur-mail.onrender.com/contact', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, service, message })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      // Succès
+      btn.textContent        = '\u2713 MESSAGE ENVOY\u00c9 !';
+      btn.style.background   = 'linear-gradient(135deg,#059669,#10b981)';
+      btn.style.opacity      = '1';
+      btn.style.pointerEvents = 'none';
+      form.reset();
+      var badge = document.getElementById('service-badge');
+      if (badge) badge.style.display = 'none';
+    } else {
+      throw new Error(data.error || 'Erreur inconnue');
+    }
+  })
+  .catch(err => {
+    // Erreur — on remet le bouton
+    console.error(err);
+    btn.textContent        = '\u2717 ERREUR \u2014 R\u00c9ESSAYEZ';
+    btn.style.background   = 'linear-gradient(135deg,#dc2626,#ef4444)';
+    btn.style.opacity      = '1';
+    btn.style.pointerEvents = 'auto';
+    setTimeout(function() {
+      btn.textContent      = 'ENVOYER MA DEMANDE \u2192';
+      btn.style.background = '';
+    }, 3000);
+  });
 }
 
 /* ── HERO CIRCUIT BOARD ── */
