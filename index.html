@@ -32,8 +32,13 @@
 
   /* ── NAV ── */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 20px 80px; background: rgba(10,14,23,0.75); backdrop-filter: blur(24px) saturate(200%); -webkit-backdrop-filter: blur(24px) saturate(200%); border-bottom: 1px solid var(--border); }
-  .logo { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #1f6feb; }
-  .logo span { color: #0969da; }
+  .logo { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #fff; text-shadow: 0 0 10px #1f6feb, 0 0 20px #7c3aed, 0 0 30px #1f6feb; animation: textGlow 3s ease-in-out infinite; }
+  .logo span { color: #fff; text-shadow: 0 0 10px #0969da, 0 0 20px #9d5cf5, 0 0 30px #0969da; }
+
+  @keyframes textGlow {
+    0%, 100% { text-shadow: 0 0 10px #1f6feb, 0 0 20px #7c3aed, 0 0 30px #1f6feb; }
+    50% { text-shadow: 0 0 15px #0969da, 0 0 30px #9d5cf5, 0 0 45px #0969da; }
+  }
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--grey); transition: color .2s; }
   .nav-links a:hover { color: var(--white); }
@@ -181,11 +186,11 @@
 
   /* ── ABOUT ── */
   #about { background: rgba(15, 20, 25, 0.70); }
-  .about-wrapper { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
-  .about-avatar { margin: 0; }
+  .about-wrapper { display: grid; grid-template-columns: 260px 1fr; gap: 40px; align-items: start; }
+  .about-avatar { margin: 0; width: 260px; }
   .about-avatar { width: 240px; aspect-ratio: 1; background: var(--card); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 80px; position: relative; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); border-radius: 12px; }
   .about-avatar::before { content: ''; position: absolute; inset: 0; background: linear-gradient(var(--g1)); opacity: .05; }
-  .about-avatar-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10,14,23,.85); backdrop-filter: blur(8px); font-size: 11px; font-weight: 600; color: var(--b2); text-align: center; padding: 10px; text-transform: uppercase; }
+  .about-avatar-label { display: none; }
   .about-text h3 { font-family: 'Poppins', sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; color: var(--white); }
   .about-text h3 span { color: var(--v2); }
   .about-sub { font-size: 14px; color: var(--grey); margin-bottom: 22px; text-transform: uppercase; font-weight: 500; }
@@ -281,8 +286,8 @@
 
   /* ── FOOTER ── */
   footer { background: var(--noir); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid var(--border); padding: 34px 60px; display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: #1f6feb; }
-  .footer-logo span { color: #0969da; }
+  .footer-logo { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: #fff; text-shadow: 0 0 8px #1f6feb, 0 0 16px #7c3aed; }
+  .footer-logo span { color: #fff; text-shadow: 0 0 8px #0969da, 0 0 16px #9d5cf5; }
   .footer-text { font-size: 13px; color: var(--grey); }
 
   /* ── ANIMATIONS ── */
@@ -519,8 +524,18 @@
     .tarif-mention-icon, .forfait-banner-icon { font-size: 18px; }
 
     /* Inline service-sur-mesure grid */
-    div[style*="grid-template-columns:repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
-    div[style*="grid-template-columns: repeat(3"] { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+    div[style*="grid-template-columns:repeat(3"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+    }
+    div[style*="grid-template-columns: repeat(3"] {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px !important;
+    }
+    /* Création site web prend 2 colonnes */
+    #tb-web { grid-column: 1 / -1 !important; }
   }
 
   /* ── SMALL MOBILE (≤ 380px) ── */
@@ -1117,8 +1132,8 @@
       <div class="step-connector">→</div>
       <div class="step-number">01</div>
       <div class="step-title">CONTACT</div>
-      <p class="step-text">Décrivez votre problème ou votre projet par email ou téléphone. Je reviens vers vous en moins de 8 heures.</p>
-      <span class="step-tag">RÉPONSE &lt; 8H</span>
+      <p class="step-text">Décrivez votre problème ou votre projet par email ou téléphone. Je reviens vers vous en moins de 2 heures.</p>
+      <span class="step-tag">RÉPONSE &lt; 2H</span>
     </div>
 
     <div class="step">
