@@ -79,7 +79,6 @@
   .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
   .services-grid .service-card { min-height: 100%; display: flex; flex-direction: column; }
   .services-grid .service-card .service-desc { flex: 1; min-height: 60px; }
-  .services-grid .service-card:nth-child(9) { grid-column: span 3; max-width: 100%; }
   .service-card { background: var(--card); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); padding: 32px 24px; position: relative; overflow: hidden; transition: all .3s; cursor: pointer; text-decoration: none; display: block; color: inherit; border-radius: 12px; border: 1px solid var(--border); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); }
   .service-card::after { content: 'VOIR LES TARIFS →'; position: absolute; bottom: 0; left: 0; right: 0; background: var(--v1); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-align: center; padding: 12px; transform: translateY(100%); transition: transform .25s ease; }
   .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 0; background: var(--v2); transition: height .4s ease; border-radius: 12px 0 0 0; }
@@ -182,8 +181,8 @@
 
   /* ── ABOUT ── */
   #about { background: rgba(15, 20, 25, 0.70); }
-  .about-wrapper { display: block; position: relative; }
-  .about-avatar { float: left; margin: 0 32px 20px 0; }
+  .about-wrapper { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+  .about-avatar { margin: 0; }
   .about-avatar { width: 240px; aspect-ratio: 1; background: var(--card); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 80px; position: relative; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); border-radius: 12px; }
   .about-avatar::before { content: ''; position: absolute; inset: 0; background: linear-gradient(var(--g1)); opacity: .05; }
   .about-avatar-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(10,14,23,.85); backdrop-filter: blur(8px); font-size: 11px; font-weight: 600; color: var(--b2); text-align: center; padding: 10px; text-transform: uppercase; }
@@ -193,8 +192,8 @@
   .about-points { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
   .about-points li { font-size: 15px; color: var(--white); line-height: 1.6; display: flex; gap: 12px; align-items: flex-start; }
   .about-points li::before { content: '▸'; color: var(--b2); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
-  .about-badges { display: flex; flex-wrap: wrap; gap: 9px; clear: both; }
-  .about-text::after { content: ''; display: table; clear: both; }
+  .about-badges { display: flex; flex-wrap: wrap; gap: 9px; }
+  .about-text { width: 100%; }
   .badge { font-size: 12px; font-weight: 500; padding: 6px 14px; background: rgba(9,105,218,.1); border: 1px solid rgba(9,105,218,.3); color: var(--v2); border-radius: 6px; }
   .badge.b { background: rgba(31,111,235,.1); border-color: rgba(31,111,235,.3); color: var(--b2); }
 
@@ -390,19 +389,42 @@
     .tarif-tab { width: 50%; text-align: center; font-size: 11px; padding: 10px 12px; }
     .tarif-tab:not(:last-child) { border-right: 1px solid var(--border); border-bottom: none; }
 
-    /* Défilement horizontal pour tarifs horaires */
+    /* Défilement horizontal pour tarifs horaires - taille réduite */
     #panel-horaire .tarif-grid {
       display: flex !important;
       overflow-x: auto !important;
-      gap: 10px !important;
+      gap: 8px !important;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       padding-bottom: 10px;
     }
     #panel-horaire .tarif-block {
-      min-width: 280px !important;
+      min-width: 240px !important;
+      max-width: 240px !important;
+      min-height: 280px !important;
       flex-shrink: 0;
       scroll-snap-align: start;
+      padding: 12px 10px !important;
+    }
+    #panel-horaire .tarif-block-title {
+      font-size: 14px !important;
+      margin-bottom: 8px !important;
+    }
+    #panel-horaire .tarif-row {
+      padding: 5px 0 !important;
+    }
+    #panel-horaire .tarif-row-label {
+      font-size: 11px !important;
+    }
+    #panel-horaire .tarif-row-sub {
+      font-size: 9px !important;
+    }
+    #panel-horaire .tarif-row-price {
+      font-size: 14px !important;
+    }
+    #panel-horaire .tarif-note {
+      font-size: 10px !important;
+      padding: 5px 7px !important;
     }
 
     /* Forfaits en 2 colonnes */
@@ -433,17 +455,17 @@
     .forfait-price-label { font-size: 9px; }
     .forfait-save { font-size: 9px; margin-top: 3px; padding: 2px 6px; }
 
-    /* About - Photo haut gauche, texte colle à droite */
-    .about-wrapper { display: block; }
-    .about-avatar { width: 110px; float: left; margin: 0 14px 10px 0; font-size: 38px; }
-    .about-avatar-label { font-size: 7px; padding: 4px; }
-    .about-text { overflow: hidden; }
-    .about-text h3 { font-size: 17px; margin-bottom: 6px; margin-top: 0; }
-    .about-sub { font-size: 10px; margin-bottom: 10px; }
-    .about-points { gap: 5px; margin-bottom: 10px; clear: none; }
-    .about-points li { font-size: 11px; line-height: 1.4; }
-    .about-points li::before { font-size: 11px; }
-    .about-badges { gap: 4px; clear: both; margin-top: 10px; }
+    /* About - Photo en haut, texte en dessous */
+    .about-wrapper { display: flex; flex-direction: column; gap: 16px; align-items: center; }
+    .about-avatar { width: 140px; margin: 0; font-size: 50px; }
+    .about-avatar-label { font-size: 8px; padding: 5px; }
+    .about-text { width: 100%; text-align: left; }
+    .about-text h3 { font-size: 18px; margin-bottom: 6px; margin-top: 0; }
+    .about-sub { font-size: 11px; margin-bottom: 10px; }
+    .about-points { gap: 6px; margin-bottom: 12px; }
+    .about-points li { font-size: 12px; line-height: 1.4; }
+    .about-points li::before { font-size: 12px; }
+    .about-badges { gap: 4px; margin-top: 10px; }
     .badge { font-size: 9px; padding: 3px 7px; }
 
     /* Process steps - 2 colonnes mobile */
@@ -526,8 +548,12 @@
     .service-tags { padding-top: 6px !important; gap: 3px !important; }
     .service-num { font-size: 8px !important; }
 
-    /* Tarifs horaires défilement */
-    #panel-horaire .tarif-block { min-width: 260px !important; }
+    /* Tarifs horaires défilement petits écrans */
+    #panel-horaire .tarif-block {
+      min-width: 220px !important;
+      max-width: 220px !important;
+      min-height: 260px !important;
+    }
 
     /* About */
     .about-avatar { width: 90px; font-size: 32px; margin: 0 12px 8px 0; }
@@ -599,7 +625,18 @@
   }
   .logo-img {
     mix-blend-mode: screen;
+    filter: drop-shadow(0 0 8px #1f6feb) drop-shadow(0 0 12px #7c3aed) brightness(1.2);
     animation: logoGlow 4s ease-in-out infinite;
+    background: transparent !important;
+  }
+
+  @keyframes logoGlow {
+    0%, 100% {
+      filter: drop-shadow(0 0 8px #1f6feb) drop-shadow(0 0 12px #7c3aed) brightness(1.2);
+    }
+    50% {
+      filter: drop-shadow(0 0 12px #0969da) drop-shadow(0 0 16px #9d5cf5) brightness(1.4);
+    }
   }
 </style>
 
