@@ -32,8 +32,8 @@
 
   /* ── NAV ── */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 20px 80px; background: rgba(10,14,23,0.75); backdrop-filter: blur(24px) saturate(200%); -webkit-backdrop-filter: blur(24px) saturate(200%); border-bottom: 1px solid var(--border); }
-  .logo { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; background: linear-gradient(135deg, #1f6feb 0%, #0969da 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .logo span { background: linear-gradient(135deg, #0969da 0%, #1f6feb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .logo { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #1f6feb; }
+  .logo span { color: #0969da; }
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--grey); transition: color .2s; }
   .nav-links a:hover { color: var(--white); }
@@ -99,6 +99,22 @@
 
   /* ── TARIFS ── */
   #tarifs { background: rgba(10, 14, 23, 0.75); }
+
+  /* Scrollbar horizontal pour tarifs mobile */
+  #panel-horaire .tarif-grid::-webkit-scrollbar {
+    height: 6px;
+  }
+  #panel-horaire .tarif-grid::-webkit-scrollbar-track {
+    background: rgba(48, 54, 61, 0.3);
+    border-radius: 3px;
+  }
+  #panel-horaire .tarif-grid::-webkit-scrollbar-thumb {
+    background: var(--v1);
+    border-radius: 3px;
+  }
+  #panel-horaire .tarif-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--v2);
+  }
 
   .tarif-mention { display: flex; align-items: flex-start; gap: 14px; background: rgba(9,105,218,.15); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(9,105,218,.3); padding: 20px 24px; margin-bottom: 44px; font-size: 15px; color: var(--white); line-height: 1.6; border-radius: 8px; }
   .tarif-mention-icon { font-size: 22px; flex-shrink: 0; }
@@ -266,8 +282,8 @@
 
   /* ── FOOTER ── */
   footer { background: var(--noir); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid var(--border); padding: 34px 60px; display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; background: linear-gradient(135deg, #1f6feb 0%, #0969da 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .footer-logo span { background: linear-gradient(135deg, #0969da 0%, #1f6feb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .footer-logo { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: #1f6feb; }
+  .footer-logo span { color: #0969da; }
   .footer-text { font-size: 13px; color: var(--grey); }
 
   /* ── ANIMATIONS ── */
@@ -328,23 +344,71 @@
     .section-desc { font-size: 13px; margin-bottom: 18px; line-height: 1.4; }
     .section-label { font-size: 10px; margin-bottom: 10px; }
 
-    /* Services grid - 2 colonnes mobile ultra-compact */
-    .services-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .service-card { padding: 12px 10px; min-height: 100%; display: flex; flex-direction: column; }
-    .service-card::after { display: none; }
-    .service-card:nth-child(9) { grid-column: span 2; padding: 14px 12px; }
-    .service-icon { font-size: 20px; margin-bottom: 6px; }
-    .service-name { font-size: 13px; margin-bottom: 6px; line-height: 1.2; }
-    .service-desc { font-size: 11px; line-height: 1.35; flex: 1; min-height: 45px; }
-    .service-note { font-size: 9px; margin-top: 6px; padding: 5px 7px; line-height: 1.3; }
-    .service-tags { margin-top: auto; gap: 3px; padding-top: 6px; }
-    .service-num { font-size: 8px; top: 8px; right: 8px; }
+    /* Services - 2 colonnes mobile propre */
+    .services-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 10px !important;
+    }
+    .service-card {
+      padding: 14px 12px !important;
+      min-height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .service-card::after { display: none !important; }
 
-    /* Tarifs - 2 colonnes mobile */
+    /* Carte Création site web en pleine largeur */
+    .service-card:nth-child(9) {
+      grid-column: 1 / -1 !important;
+      padding: 16px 14px !important;
+    }
+
+    .service-icon { font-size: 22px !important; margin-bottom: 8px !important; }
+    .service-num { font-size: 9px !important; top: 10px !important; right: 10px !important; }
+    .service-name { font-size: 14px !important; margin-bottom: 8px !important; line-height: 1.2 !important; }
+    .service-desc {
+      font-size: 12px !important;
+      line-height: 1.4 !important;
+      flex: 1 !important;
+      min-height: 48px !important;
+    }
+    .service-note {
+      font-size: 10px !important;
+      margin-top: 8px !important;
+      padding: 6px 8px !important;
+      line-height: 1.35 !important;
+    }
+    .service-tags {
+      margin-top: auto !important;
+      gap: 4px !important;
+      padding-top: 8px !important;
+    }
+
+    /* Tarifs mobile */
     .tarif-tabs { flex-direction: row; width: 100%; }
     .tarif-tab { width: 50%; text-align: center; font-size: 11px; padding: 10px 12px; }
     .tarif-tab:not(:last-child) { border-right: 1px solid var(--border); border-bottom: none; }
-    .tarif-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px; }
+
+    /* Défilement horizontal pour tarifs horaires */
+    #panel-horaire .tarif-grid {
+      display: flex !important;
+      overflow-x: auto !important;
+      gap: 10px !important;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 10px;
+    }
+    #panel-horaire .tarif-block {
+      min-width: 280px !important;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+
+    /* Forfaits en 2 colonnes */
+    #panel-forfaits .tarif-grid,
+    .forfait-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px; }
+
     .tarif-block { padding: 14px 12px; }
     .tarif-block-title { font-size: 15px; margin-bottom: 10px; }
     .tarif-row { padding: 6px 0; }
@@ -442,14 +506,30 @@
     section { padding: 28px 12px; }
     .hero-title { font-size: 32px; }
     .section-title { font-size: 24px; }
-    .services-grid { gap: 6px; grid-template-columns: repeat(2, 1fr); }
-    .service-card { padding: 10px 8px; min-height: 100%; }
-    .service-card:nth-child(9) { grid-column: span 2; padding: 12px 10px; }
-    .service-icon { font-size: 18px; margin-bottom: 5px; }
-    .service-name { font-size: 12px; margin-bottom: 5px; }
-    .service-desc { font-size: 10px; line-height: 1.3; min-height: 40px; flex: 1; }
-    .service-note { font-size: 8px; padding: 4px 6px; margin-top: 5px; }
-    .service-tags { padding-top: 5px; gap: 2px; }
+    /* Services petits écrans */
+    .services-grid {
+      gap: 8px !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .service-card {
+      padding: 12px 10px !important;
+      min-height: 100% !important;
+    }
+    .service-card:nth-child(9) {
+      grid-column: 1 / -1 !important;
+      padding: 14px 12px !important;
+    }
+    .service-icon { font-size: 20px !important; margin-bottom: 6px !important; }
+    .service-name { font-size: 13px !important; margin-bottom: 6px !important; }
+    .service-desc { font-size: 11px !important; line-height: 1.35 !important; min-height: 44px !important; flex: 1 !important; }
+    .service-note { font-size: 9px !important; padding: 5px 7px !important; margin-top: 6px !important; }
+    .service-tags { padding-top: 6px !important; gap: 3px !important; }
+    .service-num { font-size: 8px !important; }
+
+    /* Tarifs horaires défilement */
+    #panel-horaire .tarif-block { min-width: 260px !important; }
+
+    /* About */
     .about-avatar { width: 90px; font-size: 32px; margin: 0 12px 8px 0; }
     .about-text h3 { font-size: 15px; }
     .tarif-grid, .forfait-grid { gap: 6px; }
