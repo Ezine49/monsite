@@ -32,8 +32,8 @@
 
   /* ── NAV ── */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 20px 80px; background: rgba(10,14,23,0.75); backdrop-filter: blur(24px) saturate(200%); -webkit-backdrop-filter: blur(24px) saturate(200%); border-bottom: 1px solid var(--border); }
-  .logo { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 600; letter-spacing: -0.5px; color: var(--white); }
-  .logo span { color: var(--v2); }
+  .logo { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; background: linear-gradient(135deg, #1f6feb 0%, #0969da 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .logo span { background: linear-gradient(135deg, #0969da 0%, #1f6feb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .nav-links { display: flex; gap: 32px; list-style: none; }
   .nav-links a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--grey); transition: color .2s; }
   .nav-links a:hover { color: var(--white); }
@@ -266,8 +266,8 @@
 
   /* ── FOOTER ── */
   footer { background: var(--noir); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid var(--border); padding: 34px 60px; display: flex; align-items: center; justify-content: space-between; }
-  .footer-logo { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 600; letter-spacing: -0.5px; color: var(--white); }
-  .footer-logo span { color: var(--v2); }
+  .footer-logo { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; background: linear-gradient(135deg, #1f6feb 0%, #0969da 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .footer-logo span { background: linear-gradient(135deg, #0969da 0%, #1f6feb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .footer-text { font-size: 13px; color: var(--grey); }
 
   /* ── ANIMATIONS ── */
@@ -306,7 +306,7 @@
 
     /* Nav */
     nav { padding: 12px 16px; }
-    .logo { font-size: 20px; letter-spacing: 2px; }
+    .logo { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
     .logo-wrapper { width: 32px; height: 32px; }
     .logo-img { width: 28px !important; height: 28px !important; }
 
@@ -328,16 +328,16 @@
     .section-desc { font-size: 13px; margin-bottom: 18px; line-height: 1.4; }
     .section-label { font-size: 10px; margin-bottom: 10px; }
 
-    /* Services grid - 2 colonnes mobile */
+    /* Services grid - 2 colonnes mobile ultra-compact */
     .services-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .service-card { padding: 14px 10px; min-height: auto; }
+    .service-card { padding: 12px 10px; min-height: 100%; display: flex; flex-direction: column; }
     .service-card::after { display: none; }
-    .service-card:nth-child(9) { grid-column: span 2; }
+    .service-card:nth-child(9) { grid-column: span 2; padding: 14px 12px; }
     .service-icon { font-size: 20px; margin-bottom: 6px; }
     .service-name { font-size: 13px; margin-bottom: 6px; line-height: 1.2; }
-    .service-desc { font-size: 11px; line-height: 1.4; min-height: auto; }
-    .service-note { font-size: 10px; margin-top: 6px; padding: 6px 8px; line-height: 1.3; }
-    .service-tags { margin-top: 6px; gap: 3px; padding-top: 6px; }
+    .service-desc { font-size: 11px; line-height: 1.35; flex: 1; min-height: 45px; }
+    .service-note { font-size: 9px; margin-top: 6px; padding: 5px 7px; line-height: 1.3; }
+    .service-tags { margin-top: auto; gap: 3px; padding-top: 6px; }
     .service-num { font-size: 8px; top: 8px; right: 8px; }
 
     /* Tarifs - 2 colonnes mobile */
@@ -369,16 +369,17 @@
     .forfait-price-label { font-size: 9px; }
     .forfait-save { font-size: 9px; margin-top: 3px; padding: 2px 6px; }
 
-    /* About - Compact inline */
+    /* About - Photo haut gauche, texte colle à droite */
     .about-wrapper { display: block; }
-    .about-avatar { width: 120px; float: left; margin: 0 16px 12px 0; font-size: 40px; }
-    .about-avatar-label { font-size: 8px; padding: 5px; }
-    .about-text h3 { font-size: 18px; margin-bottom: 6px; }
+    .about-avatar { width: 110px; float: left; margin: 0 14px 10px 0; font-size: 38px; }
+    .about-avatar-label { font-size: 7px; padding: 4px; }
+    .about-text { overflow: hidden; }
+    .about-text h3 { font-size: 17px; margin-bottom: 6px; margin-top: 0; }
     .about-sub { font-size: 10px; margin-bottom: 10px; }
-    .about-points { gap: 6px; margin-bottom: 12px; }
-    .about-points li { font-size: 12px; line-height: 1.4; }
-    .about-points li::before { font-size: 12px; }
-    .about-badges { gap: 4px; clear: both; }
+    .about-points { gap: 5px; margin-bottom: 10px; clear: none; }
+    .about-points li { font-size: 11px; line-height: 1.4; }
+    .about-points li::before { font-size: 11px; }
+    .about-badges { gap: 4px; clear: both; margin-top: 10px; }
     .badge { font-size: 9px; padding: 3px 7px; }
 
     /* Process steps - 2 colonnes mobile */
@@ -424,6 +425,10 @@
     /* Nav compact */
     .nav-links { display: none; }
 
+    /* Optimisation espaces vides mobile */
+    .service-card { justify-content: space-between; }
+    .service-card .service-desc { margin-bottom: 0; }
+
     /* Optimisation banners */
     .tarif-mention-icon, .forfait-banner-icon { font-size: 18px; }
 
@@ -438,12 +443,15 @@
     .hero-title { font-size: 32px; }
     .section-title { font-size: 24px; }
     .services-grid { gap: 6px; grid-template-columns: repeat(2, 1fr); }
-    .service-card { padding: 12px 8px; }
-    .service-card:nth-child(9) { grid-column: span 2; }
-    .service-name { font-size: 12px; }
-    .service-desc { font-size: 10px; line-height: 1.3; min-height: auto; }
-    .service-note { font-size: 9px; padding: 5px 6px; }
-    .service-icon { font-size: 18px; }
+    .service-card { padding: 10px 8px; min-height: 100%; }
+    .service-card:nth-child(9) { grid-column: span 2; padding: 12px 10px; }
+    .service-icon { font-size: 18px; margin-bottom: 5px; }
+    .service-name { font-size: 12px; margin-bottom: 5px; }
+    .service-desc { font-size: 10px; line-height: 1.3; min-height: 40px; flex: 1; }
+    .service-note { font-size: 8px; padding: 4px 6px; margin-top: 5px; }
+    .service-tags { padding-top: 5px; gap: 2px; }
+    .about-avatar { width: 90px; font-size: 32px; margin: 0 12px 8px 0; }
+    .about-text h3 { font-size: 15px; }
     .tarif-grid, .forfait-grid { gap: 6px; }
     .tarif-block, .forfait-card { padding: 12px 10px; }
     .tarif-row { flex-wrap: wrap; gap: 4px; padding: 5px 0; }
